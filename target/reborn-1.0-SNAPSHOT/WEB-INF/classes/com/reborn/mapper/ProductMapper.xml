@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.reborn.mapper.ProductMapper">
+    <!--id search-->
+    <select id="findProductById" parameterType="Integer" resultType="com.reborn.entity.Product">
+        select
+        <include refid="selectColumns"/>
+        <include refid="tableName"/>
+        where id=#{id}
+    </select>
+
+    <select id="findProductByName" parameterType="String" resultType="com.reborn.entity.Product">
+        select
+        <include refid="selectColumns"/>
+        from product where name like concat('%',#{value},'%')
+    </select>
+
+    <!--if-->
+    <select id="findProductByNameAndDescription" parameterType="com.reborn.entity.Product" resultType="com.reborn.entity.Product">
+        select
+        <include refid="selectColumns"/>
+        <include refid="tableName"/>
+        <where>
+            <if test="name != null and name != ''">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="description != null and description !=''">
+                and description like concat('%',#{description},'%')
+            </if>
+        </where>
+    </select>
+
+    <!--choose-->
+    <select id="findProductByNameOrDescription" parameterType="com.reborn.entity.Product" resultType="com.reborn.entity.Product">
+        select
+        <include refid="selectColumns"/>
+        <include refid="tableName"/>
+        <where>
+            <choose>
+                <when test="name != null and name != ''">
+                    and name like concat('%',#{name},'%')
+                </when>
+                <when test="description != null and description !=''">
+                    and description like concat('%',#{description},'%')
+                </when>
+                <otherwise>
+                    and price >= #{price}
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <!--foreach-->
+    <select id="findProductByIds" parameterType="List" resultType="com.reborn.entity.Product">
+        select
+        <include refid="selectColumns"/>
+        <include refid="tableName"/>
+        where id in
+        <foreach collection="list" item="id" index="index" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <!--bind-->
+    <select id="findProductByBind" parameterType="com.reborn.entity.Product" resultType="com.reborn.entity.Product">
+        <bind name="bind_name" value="'%'+name+'%'"/>
+        select
+        <include refid="selectColumns"/>
+        <include refid="tableName"/>
+        where name like #{bind_name}
+    </select>
+
+    <insert id="addProduct" parameterType="com.reborn.entity.Product" keyProperty="id">
+        insert into product(name,price,description,detail) values (#{name},#{price},#{description},#{detail})
+    </insert>
+
+    <update id="updateProduct" parameterType="com.reborn.entity.Product">
+        update product p set p.name=#{name},p.price=#{price},p.description=#{description},p.detail=#{detail} where id=#{id}
+    </update>
+
+    <!--set-->
+    <update id="updateProductBySet" parameterType="com.reborn.entity.Product">
+        update product
+        <set>
+            <if test="name != null and name !=''">
+                name = #{name},
+            </if>
+            <if test="price != null and price !=''">
+                price = #{price},
+            </if>
+            <if test="description != null and description !=''">
+                description = #{description},
+            </if>
+            <if test="detail != null and detail !=''">
+                detail = #{detail},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteProduct" parameterType="Integer">
+        delete from product where id=#{id}
+    </delete>
+
+    <sql id="selectColumns">
+        id,name,price,description,detail
+    </sql>
+
+    <sql id="tableName">
+        from product
+    </sql>
+</mapper>

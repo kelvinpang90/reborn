@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.reborn.mapper.ShoppingCartMapper">
+
+    <select id="findShoppingCartById" parameterType="integer" resultMap="shoppingCartWithItems">
+        select * from shopping_cart where id = #{id}
+    </select>
+
+    <resultMap id="shoppingCartWithItems" type="com.reborn.entity.ShoppingCart">
+        <id property="id" column="id"/>
+        <result property="count" column="count"/>
+        <collection property="shoppingCartItemList" column="id"
+                    select="com.reborn.mapper.ShoppingCartItemMapper.findShoppingCartItemsByCartId"
+                    ofType="com.reborn.entity.ShoppingCartItem"/>
+    </resultMap>
+
+    <insert id="addShoppingCart" parameterType="com.reborn.entity.ShoppingCart" keyProperty="id">
+        insert into shopping_cart(count) values (0)
+    </insert>
+
+    <delete id="deleteShoppingCart" parameterType="Integer">
+        delete from shopping_cart where id=#{id}
+    </delete>
+
+    <update id="updateShoppingCart" parameterType="com.reborn.entity.ShoppingCart">
+        update shopping_cart set count=#{count} where id=#{id}
+    </update>
+
+</mapper>

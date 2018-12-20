@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.reborn.mapper.UserMapper">
+
+    <insert id="addUser" parameterType="com.reborn.entity.User" keyProperty="id">
+        insert into user(login_name,password) values (#{loginName},#{password})
+    </insert>
+
+    <delete id="deleteUser" parameterType="Integer">
+        delete from user where id=#{id}
+    </delete>
+
+    <update id="updateUser" parameterType="com.reborn.entity.User">
+        update user
+        <set>
+            <if test="loginName!=null and loginName!=''">
+                login_name = #{loginName},
+            </if>
+            <if test="password!=null and password != ''">
+                password = #{password},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="findUserById" parameterType="integer" resultMap="userResult">
+        select * from user where id = #{id}
+    </select>
+
+    <resultMap id="userResult" type="com.reborn.entity.User">
+        <result property="id" column="id"/>
+        <result property="loginName" column="login_name"/>
+        <result property="password" column="password"/>
+        <association property="userInfo" column="user_info_id" javaType="com.reborn.entity.UserInfo"
+                     select="com.reborn.mapper.UserInfoMapper.findUserInfoById" >
+        </association>
+    </resultMap>
+
+    <select id="findUserById2" parameterType="integer" resultMap="userResult2">
+        select u.*,ui.* from user u,user_info ui where ui.id=u.user_info_id and u.id=#{id}
+    </select>
+
+    <resultMap id="userResult2" type="com.reborn.entity.User">
+        <id column="id" property="id"/>
+        <result column="login_name" property="loginName"/>
+        <result column="password" property="password"/>
+        <association property="userInfo" javaType="com.reborn.entity.UserInfo">
+            <id property="id" column="id"/>
+            <result column="first_name" property="firstName"/>
+            <result column="last_name" property="lastName"/>
+            <result column="gender" property="gender"/>
+            <result column="age" property="age"/>
+        </association>
+    </resultMap>
+
+    <select id="findUserByNameAndPassword" parameterType="String" resultType="com.reborn.entity.User">
+        select * from user where login_name=#{loginName} and password=#{password}
+    </select>
+
+    <select id="getAllUsers" resultMap="userResult2">
+        select * from user
+    </select>
+</mapper>

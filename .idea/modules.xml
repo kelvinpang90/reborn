@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://D:/project/DaFi/DaFi.iml" filepath="D:/project/DaFi/DaFi.iml" />
+      <module fileurl="file://D:/project/SF_v2/SF_v2.iml" filepath="D:/project/SF_v2/SF_v2.iml" />
+      <module fileurl="file://D:/project/VISUAL INTERIOR/VISUAL INTERIOR.iml" filepath="D:/project/VISUAL INTERIOR/VISUAL INTERIOR.iml" />
+      <module fileurl="file://D:/project/avcp/avcp.iml" filepath="D:/project/avcp/avcp.iml" />
+      <module fileurl="file://D:/project/bagshop/bagshop.iml" filepath="D:/project/bagshop/bagshop.iml" />
+      <module fileurl="file://D:/project/bagshop_entity/bagshop_entity.iml" filepath="D:/project/bagshop_entity/bagshop_entity.iml" />
+      <module fileurl="file://D:/project/bagshop_transaction/bagshop_transaction.iml" filepath="D:/project/bagshop_transaction/bagshop_transaction.iml" />
+      <module fileurl="file://D:/project/bagshop_wap/bagshop_wap.iml" filepath="D:/project/bagshop_wap/bagshop_wap.iml" />
+      <module fileurl="file://D:/project/mth/com-ad/com-ad.iml" filepath="D:/project/mth/com-ad/com-ad.iml" />
+      <module fileurl="file://D:/project/mth/com-base/com-base.iml" filepath="D:/project/mth/com-base/com-base.iml" />
+      <module fileurl="file://D:/project/mth/com-crm/com-crm.iml" filepath="D:/project/mth/com-crm/com-crm.iml" />
+      <module fileurl="file://D:/project/mth/com-domain/com-domain.iml" filepath="D:/project/mth/com-domain/com-domain.iml" />
+      <module fileurl="file://D:/project/mth/com-estate/com-estate.iml" filepath="D:/project/mth/com-estate/com-estate.iml" />
+      <module fileurl="file://D:/project/mth/com-iagent/com-iagent.iml" filepath="D:/project/mth/com-iagent/com-iagent.iml" />
+      <module fileurl="file://D:/project/mth/com-infra/com-infra.iml" filepath="D:/project/mth/com-infra/com-infra.iml" />
+      <module fileurl="file://D:/project/mth/mth4-home/mth4-home.iml" filepath="D:/project/mth/mth4-home/mth4-home.iml" />
+      <module fileurl="file://D:/project/oriental/oriental.iml" filepath="D:/project/oriental/oriental.iml" />
+      <module fileurl="file://$PROJECT_DIR$/reborn.iml" filepath="$PROJECT_DIR$/reborn.iml" />
+      <module fileurl="file://D:/project/studio/studio.iml" filepath="D:/project/studio/studio.iml" />
+    </modules>
+  </component>
+</project>

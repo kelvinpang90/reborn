@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.reborn.mapper.UploadFileMapper">
+    <insert id="add" parameterType="com.reborn.entity.UploadFile" keyProperty="id">
+        insert into upload_file(file_name,type,upload_date,path) value(#{fileName},#{type},#{uploadDate},#{path})
+    </insert>
+    
+    <delete id="deleteById" parameterType="Integer">
+        delete from upload_file where id=#{id}
+    </delete>
+
+    <select id="getAll" resultMap="uploadFileResult">
+        select * from upload_file
+    </select>
+
+    <select id="getById" resultMap="uploadFileResult">
+        select * from upload_file where id=#{id}
+    </select>
+
+    <select id="getByType" resultMap="uploadFileResult">
+        select * from upload_file uf where uf.type=#{type}
+    </select>
+
+    <resultMap id="uploadFileResult" type="com.reborn.entity.UploadFile">
+        <id property="id" column="id"/>
+        <result property="fileName" column="file_name"/>
+        <result property="type" column="type"/>
+        <result property="uploadDate" column="upload_date"/>
+        <result property="path" column="path"/>
+    </resultMap>
+</mapper>
