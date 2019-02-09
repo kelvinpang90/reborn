@@ -104,4 +104,5 @@
     </aop:aspect>
     </aop:config>
 
+    <import resource="redis-config.xml"/>
 </beans>

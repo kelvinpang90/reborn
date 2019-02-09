@@ -74,9 +74,18 @@
     <br>
 
     <c:forEach items="${pwk:getAllUploadFiles()}" var="uploadFile">
-        <a href="${pageContext.request.contextPath}/first/fileDownload/${uploadFile.id}">${uploadFile.fileName}.${uploadFile.type}</a>
+        <a href="${pageContext.request.contextPath}/first/fileDownload1/${uploadFile.id}">${uploadFile.fileName}.${uploadFile.type}</a>
         <br>
     </c:forEach>
+    <br>
+    <br>
+
+    <div>
+        Redis Key<input type="text" name="key" id="key"><br>
+        Redis Value<input type="text" name="value" id="value"><br>
+        <input type="button" value="Add String" onclick="ajaxRedisList()">
+    </div>
+    <div id="redisList"></div>
 
     <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
     <script>
@@ -104,6 +113,20 @@
                     alert(data.loginName+" "+data.password);
                 }
             });
+        }
+
+        function ajaxRedisList() {
+            var key = $("#key");
+            var value = $("#value");
+            $.ajax({
+                url:"${pageContext.request.contextPath}/first/redisListAdd/"+key.val()+"/"+value.val(),
+                type:"get",
+                dataType:"json",
+                contentType:"application/json;charset=UTF-8",
+                success:function(data){
+                    $("#redisList").html("success "+data);
+                }
+            })
         }
     </script>
 </body>

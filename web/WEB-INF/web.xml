@@ -57,6 +57,16 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
+    <!--session-->
+    <!--<filter>-->
+        <!--<filter-name>springSessionRepositoryFilter</filter-name>-->
+        <!--<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>-->
+    <!--</filter>-->
+    <!--<filter-mapping>-->
+        <!--<filter-name>springSessionRepositoryFilter</filter-name>-->
+        <!--<url-pattern>/*</url-pattern>-->
+    <!--</filter-mapping>-->
+
     <!--default main page-->
     <welcome-file-list>
         <welcome-file>/jsp/index.jsp</welcome-file>

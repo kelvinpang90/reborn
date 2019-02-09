@@ -1,12 +1,12 @@
 package com.reborn.controller;
 
 import com.reborn.entity.*;
+import com.reborn.redis.RStringUtil;
 import com.reborn.service.UploadFileService;
 import com.reborn.service.UserAddressService;
 import com.reborn.service.UserService;
 import com.reborn.tool.Message;
 import org.apache.commons.io.FileUtils;
-import org.json.JSONObject;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -44,6 +44,8 @@ public class FirstController {
     private UploadFileService uploadFileService;
     @Resource
     private JdbcTemplate oracleJdbcTemplate;
+    @Resource
+    private RStringUtil rStringUtil;
 
     @RequestMapping(value = "/handleRequest")
     public String handleRequest(HttpServletRequest request, HttpServletResponse response){
@@ -104,15 +106,13 @@ public class FirstController {
     }
 
     @RequestMapping("/jsonData")
-    @ResponseBody
-    public User jsonData(@RequestBody User user){
+    public @ResponseBody User jsonData(@RequestBody User user){
         System.out.println(user);
         return user;
     }
 
     @RequestMapping(value = "/restfulData/{id}",method = RequestMethod.GET)
-    @ResponseBody
-    public User restfulData(@PathVariable("id") String id){
+    public @ResponseBody User restfulData(@PathVariable("id") String id){
         User user = userService.findUserById2(Integer.valueOf(id));
         System.out.println(user);
         return user;
@@ -145,12 +145,15 @@ public class FirstController {
         return "dataTest";
     }
 
-    @RequestMapping(value = "/fileDownload/${id}")
+    @RequestMapping(value = "/fileDownload1/{id}",method = RequestMethod.GET)
+    @ResponseBody
     public ResponseEntity<byte[]> fileDownload(@PathVariable("id") String id) throws IOException {
+        System.out.println("method:fileDownload "+id);
         UploadFile downloadFile = uploadFileService.getById(Integer.valueOf(id));
         File file = new File(downloadFile.getPath()+downloadFile.getFileName()+"."+downloadFile.getType());
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentDispositionFormData("attachment",downloadFile.getFileName()+downloadFile.getFileName()+"."+downloadFile.getType());
+        System.out.println(downloadFile.getFileName()+"."+downloadFile.getType());
+        headers.setContentDispositionFormData("attachment",downloadFile.getFileName()+"."+downloadFile.getType());
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
         return new ResponseEntity<>(FileUtils.readFileToByteArray(file),headers, HttpStatus.OK);
     }
@@ -161,5 +164,20 @@ public class FirstController {
         System.out.println(products);
         return "dataTest";
     }
+
+    @RequestMapping(value = "/redisListAdd/{key}/{value}",method = RequestMethod.GET)
+    public @ResponseBody String redisStringAdd(@PathVariable("key") String key,@PathVariable("value") String value){
+        System.out.println(key);
+        System.out.println(value);
+        rStringUtil.set(key,value);
+        return key+":"+value;
+    }
+
+    @RequestMapping(value = "/redisSessionTest")
+    public String redisSessionTest(HttpServletRequest request){
+        request.getSession().setAttribute("redisSession","success");
+        return "dataTest";
+    }
+
 }
 
