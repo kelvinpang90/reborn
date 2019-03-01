@@ -70,6 +70,7 @@ public class Lambda_Stream {
         System.out.println(map);
         //filter male name and put all names into list
         System.out.println(list.stream().filter(p->p.getGender()== Person.SEX.MALE).map(Person::getName).collect(Collectors.toList()));
+        System.out.println(list.stream().filter(pp->pp.getGender()==Person.SEX.MALE));
 
     }
 

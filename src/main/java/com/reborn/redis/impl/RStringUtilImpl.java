@@ -40,4 +40,14 @@ public class RStringUtilImpl implements RStringUtil {
     public Long incr(String key) {
         return jedisPool.getResource().incr(key);
     }
+
+    @Override
+    public String getset(String key, String value) {
+        return jedisPool.getResource().getSet(key,value);
+    }
+
+    @Override
+    public long setnx(String key, String value) {
+        return jedisPool.getResource().setnx(key,value);
+    }
 }
