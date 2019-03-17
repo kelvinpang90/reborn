@@ -10,4 +10,11 @@ public interface ProductService {
     void update(Product product);
     Product getById(int id);
     List<Product> getByName(String productName);
+    default void Hello(){
+        System.out.println("abc");
+    }
+
+    static void World(){
+        System.out.println("hello");
+    }
 }
